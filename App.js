@@ -2,7 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 
 const main = 'https://firebasestorage.googleapis.com/v0/b/sparta-image.appspot.com/o/lecture%2Fmain.png?alt=media&token=8e5eb78d-19ee-4359-9209-347d125b322c'
+import data from './data.json';
+
 export default function App() {
+  let tip = data.tip;
+  let todayWeather = 10 + 17;
+  let todayCondition = "흐림"
   //return 구문 밖에서는 슬래시 두개 방식으로 주석
   return (
     /*
@@ -10,6 +15,7 @@ export default function App() {
     */
     <ScrollView style={styles.container}>
       <Text style={styles.title}>나만의 꿀팁</Text>
+      <Text style={styles.weather}>오늘의 날씨: {todayWeather + '°C ' + todayCondition} </Text>
       <Image style={styles.mainImage} source={{uri:main}}/>
       <ScrollView style={styles.middleContainer} horizontal indicatorStyle={"white"}>
         <TouchableOpacity style={styles.middleButton01}><Text style={styles.middleButtonText}>생활</Text></TouchableOpacity>
@@ -19,14 +25,18 @@ export default function App() {
       </ScrollView>
       <View style={styles.cardContainer}>
         {/* 하나의 카드 영역을 나타내는 View */}
-        <View style={styles.card}>
-          <Image style={styles.cardImage} source={{uri:"https://firebasestorage.googleapis.com/v0/b/sparta-image.appspot.com/o/lecture%2Fpizza.png?alt=media&token=1a099927-d818-45d4-b48a-7906fd0d2ad3"}}/>
-          <View style={styles.cardText}>
-            <Text style={styles.cardTitle}>먹다 남은 피자를 촉촉하게!</Text>
-            <Text style={styles.cardDesc} numberOfLines={3}>먹다 남은 피자는 수분이 날라가기 때문에 처음처럼 맛있게 먹을 수 없는데요. 이럴 경우 그릇에 물을 받아 전자레인지 안에서 1분 30초에서 2분 정도 함께 돌려주면 촉촉하게 먹을 수 있습니다. 물이 전자레인지 안에서 수증기를 일으키고, 피자에 촉촉함을 더해줍니다.</Text>
-            <Text style={styles.cardDate}>2020.09.09</Text>
-          </View>
-        </View>
+        { 
+          tip.map((content,i)=>{
+            return (<View style={styles.card} key={i}>
+              <Image style={styles.cardImage} source={{uri:content.image}}/>
+              <View style={styles.cardText}>
+                <Text style={styles.cardTitle} numberOfLines={1}>{content.title}</Text>
+                <Text style={styles.cardDesc} numberOfLines={3}>{content.desc}</Text>
+                <Text style={styles.cardDate}>{content.date}</Text>
+              </View>
+            </View>)
+          })
+         }
         
       </View>
    
@@ -46,8 +56,12 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     //위 공간으로 부터 이격
     marginTop:50,
-	    //왼쪽 공간으로 부터 이격'
+    //왼쪽 공간으로 부터 이격
     marginLeft:20
+  },
+  weather:{
+    alignSelf:"flex-end",
+    paddingRight:20
   },
   mainImage: {
     //컨텐츠의 넓이 값
@@ -91,6 +105,12 @@ const styles = StyleSheet.create({
     borderRadius:15,
     margin:7
   },
+  middleButtonText: {
+    color:"#fff",
+    fontWeight:"700",
+    //텍스트의 현재 위치에서의 정렬 
+    textAlign:"center"
+  },
   middleButton04: {
     width:100,
     height:50,
@@ -98,12 +118,6 @@ const styles = StyleSheet.create({
     backgroundColor:"#f886a8",
     borderRadius:15,
     margin:7
-  },
-  middleButtonText: {
-    color:"#fff",
-    fontWeight:"700",
-    //텍스트의 현재 위치에서의 정렬 
-    textAlign:"center"
   },
   cardContainer: {
     marginTop:10,
@@ -141,7 +155,7 @@ const styles = StyleSheet.create({
   cardDate: {
     fontSize:10,
     color:"#A6A6A6",
-  }
+  },
 
 
 });
