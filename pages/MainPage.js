@@ -1,11 +1,28 @@
-import React from 'react';
+import React,{useState,useEffect} from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity, ScrollView} from 'react-native';
 
 const main = 'https://storage.googleapis.com/sparta-image.appspot.com/lecture/main.png'
 import data from '../data.json';
 import Card from '../components/Card';
 export default function MainPage() {
-  let tip = data.tip;
+  //useState 사용법
+	//[state,setState] 에서 state는 이 컴포넌트에서 관리될 상태 데이터를 담고 있는 변수
+  //setState는 state를 변경시킬때 사용해야하는 함수
+
+  //모두 다 useState가 선물해줌
+  //useState()안에 전달되는 값은 state 초기값
+  const [state,setState] = useState([])
+	
+
+	//하단의 return 문이 실행되어 화면이 그려진다음 실행되는 useEffect 함수
+  //내부에서 data.json으로 부터 가져온 데이터를 state 상태에 담고 있음
+  useEffect(()=>{
+    setState(data)
+  },[])
+
+//   let tip = data.tip;
+  //data.json 데이터는 state에 담기므로 상태에서 꺼내옴
+  let tip = state.tip;
   let todayWeather = 10 + 17;
   let todayCondition = "흐림"
   //return 구문 밖에서는 슬래시 두개 방식으로 주석
