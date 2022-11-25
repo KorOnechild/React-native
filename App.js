@@ -5,8 +5,8 @@ import DetailPage from './pages/DetailPage';
 
 export default function App() {
   return (
-    // <MainPage/>
+    <MainPage/>
     // <AboutPage/>
-    <DetailPage/>
+    // <DetailPage/>
   );
 }
