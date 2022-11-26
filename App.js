@@ -17,5 +17,6 @@ export default function App() {
   <NavigationContainer>
     <StatusBar style="black" />
     <StackNavigator/>
- </NavigationContainer>);
+ </NavigationContainer>
+ );
 }
