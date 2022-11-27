@@ -50,7 +50,7 @@ export default function DetailPage({navigation,route}) {
         }
 
         console.log(userUniqueId)
-	       firebase_db.ref('/like/'+user_id+'/'+ tip.idx).set(tip,function(error){
+	       firebase_db.ref('/like/'+userUniqueId+'/'+ tip.idx).set(tip,function(error){
              console.log(error)
              Alert.alert("찜 완료!")
          });
